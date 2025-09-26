@@ -10,6 +10,13 @@ def preprocess_data(data, target_column, save_path, file_path):
     categorical_features = data.select_dtypes(include=['object']).columns.tolist()
     column_names = data.columns.drop(target_column)
 
+    # Membuat DataFrame kosong dengan nama kolom
+    df_header = pd.DataFrame(columns=column_names)
+
+    # Menyimpan nama kolom sebagai header tanpa data
+    df_header.to_csv(file_path, index=False)
+    print(f"Nama kolom berhasil disimpan ke: {file_path}")
+
     if target_column in numeric_features:
         numeric_features.remove(target_column)
     if target_column in categorical_features:
@@ -46,7 +53,3 @@ def preprocess_data(data, target_column, save_path, file_path):
     dump(preprocessor, save_path)
 
     return X_train, X_test, y_train, y_test
-
-# # Contoh penggunaan
-# data = pd.read_csv("../insurance_raw.csv")
-# preprocess_data(data,"charges","preprocessor.joblib","insurance_preprocessing.csv")
