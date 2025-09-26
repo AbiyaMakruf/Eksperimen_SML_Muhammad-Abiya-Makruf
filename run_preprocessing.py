@@ -6,7 +6,7 @@ from preprocessing.automate_MuhammadAbiyaMakruf import preprocess_data
 if __name__ == "__main__":
     raw_path = "insurance_raw.csv"
     save_pipeline_path = "preprocessing/preprocessor.joblib"
-    save_header_path = "preprocessing/columns.csv"
+    save_header_path = "preprocessing/insurance_preprocessing/columns.csv"
     save_dataset_path = "preprocessing/insurance_preprocessing"
 
     os.makedirs(save_dataset_path, exist_ok=True)
