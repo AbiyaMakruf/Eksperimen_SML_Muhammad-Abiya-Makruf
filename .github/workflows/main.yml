@@ -23,3 +23,9 @@ jobs:
     - name: Run preprocessing
       run: |
         python run_preprocessing.py
+
+    - name: Upload preprocessed train
+      uses: actions/upload-artifact@v3
+      with:
+        name: preprocessed-data
+        path: preprocessing/insurance_preprocessing/*.csv
