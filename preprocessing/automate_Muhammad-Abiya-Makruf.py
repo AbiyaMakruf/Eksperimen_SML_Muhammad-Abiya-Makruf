@@ -31,22 +31,21 @@ def preprocess_data(data, target_column, save_path, file_path):
         ]
     )
 
-    # simpan target
-    y = data[target_column]
+    # Memisahkan target
     X = data.drop(columns=[target_column])
+    y = data[target_column]
 
-    # fit transform
-    X_processed = preprocessor.fit_transform(X)
+    # Membagi data
+    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3, random_state=42)
 
-    # DataFrame hasil + target
-    df_final = pd.DataFrame(
-        X_processed.toarray() if hasattr(X_processed, "toarray") else X_processed
-    )
-    df_final[target_column] = y.reset_index(drop=True)
-
-    # save pipeline dan csv
+    # Fitting dan transformasi data pada training set
+    X_train = preprocessor.fit_transform(X_train)
+    # Transformasi data pada testing set
+    X_test = preprocessor.transform(X_test)
+    # Simpan pipeline
     dump(preprocessor, save_path)
-    df_final.to_csv(file_path, index=False)
+
+    return X_train, X_test, y_train, y_test
 
 # # Contoh penggunaan
 # data = pd.read_csv("../insurance_raw.csv")
